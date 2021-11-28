@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Deebot model",
+  "description": "Describe a deebot model",
+  "type": "object",
+  "required": ["name", "class", "protocol"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the model",
+      "minLength": 1
+    },
+    "class": {
+      "type": "string",
+      "description": "Class of the model",
+      "minLength": 1
+    },
+    "protocol": {
+      "enum": ["mqtt/json", "mqtt/xml", "xmpp"],
+      "type": "string",
+      "description": "Protocol used by the robot"
+    },
+    "components": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["main_brush", "side_brush", "filter"],
+        "options": {
+          "enum_titles": ["Main brush", "Side brush", "Filter"]
+        }
+      },
+      "description": "Available components",
+      "title": "Components"
+    },
+    "features": {
+      "type": "array",
+      "uniqueItems": true,
+      "title": "Features",
+      "description": "Avialable features",
+      "items": {
+        "type": "string",
+        "enum": [
+          "advanced_mode",
+          "mop_reminder",
+          "carpet_auto_fan_speed_boost",
+          "continuous_cleaning",
+          "do_not_disturb",
+          "cleaning_schedule",
+          "voice_report"
+        ],
+        "options": {
+          "enum_titles": [
+            "Advanced mode",
+            "Mop reminder",
+            "Carpet auto fan speed boost",
+            "Continuous cleaning",
+            "Do not disturb",
+            "Cleaning schedule",
+            "Voice report/volume"
+          ]
+        }
+      }
+    },
+    "cleaning_modes": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Available cleaning types",
+      "items": {
+        "enum": ["spot_area", "custom_area"],
+        "type": "string"
+      },
+      "title": "Cleaning modes"
+    },
+    "water_levels": {
+      "type": "array",
+      "uniqueItems": true,
+      "title": "Water level",
+      "description": "Avialable water levels",
+      "items": {
+        "type": "string",
+        "enum": ["low", "medium", "high", "ultra_high"],
+        "options": {
+          "enum_titles": ["Low", "Medium", "High", "Ultra high"]
+        }
+      }
+    },
+    "fan_speeds": {
+      "title": "Fan speed",
+      "type": "array",
+      "description": "Available fan speeds",
+      "items": {
+        "type": "string",
+        "enum": ["quiet", "standard", "max", "max+"],
+        "options": {
+          "enum_titles": ["Quiet", "Standard", "Max", "Max+"]
+        }
+      },
+      "uniqueItems": true
+    }
+  }
+}
