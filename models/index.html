@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Deebot Models Editor</title>
+    <script src="jsoneditor.min.js"></script>
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+</head>
+<body>
+<h1>Editor</h1>
+<p>Below is the editor generated from the JSON Schema.</p>
+<div id="json-editor-form"></div>
+
+<script>
+    var data = {
+        iconlib: 'fontawesome5',
+        object_layout: 'normal',
+        show_errors: 'always',
+        theme: 'bootstrap4',
+        disable_properties: true,
+        no_additional_properties: true,
+        disable_collapse: true
+    }
+
+    var jsoneditor = null;
+
+    /* --------------------------------------------------------- initJsoneditor */
+
+    var initJsonEditor = function (schema) {
+        // destroy old JSONEditor instance if exists
+        if (jsoneditor) {
+            jsoneditor.destroy();
+        }
+
+        data.schema = schema;
+
+        // new instance of JSONEditor
+        jsoneditor = new window.JSONEditor(document.querySelector('#json-editor-form'), data);
+
+        // listen for changes
+        /*jsoneditor.on('change', function () {
+            // output
+            var json = jsoneditor.getValue()
+            outputTextarea.value = JSON.stringify(json, null, 2)
+
+            // validate
+            var validationErrors = jsoneditor.validate()
+            if (validationErrors.length) {
+              validateTextarea.value = JSON.stringify(validationErrors, null, 2)
+            } else {
+              validateTextarea.value = 'valid'
+            }
+        });*/
+    }
+
+    //load schema
+    fetch('v1/schema.json')
+        .then(response => response.json())
+        .then(schema => initJsonEditor(schema));
+
+</script>
+</body>
+</html>
